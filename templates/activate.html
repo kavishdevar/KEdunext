@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/static/js/material.js"></script>
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link rel="stylesheet" href="/static/css/colors.module.css">
+    <link rel="stylesheet" href="/static/css/tokens.css">
+    <link rel="stylesheet" href="/static/css/typography.module.css">
+    <title>Activate</title>
+</head>
+<body class="background">
+    <style>
+        .card {
+            width: 50%;
+            height: 300px;
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            border-radius: 28px;
+            margin: auto;
+            background-color: --md-primary-container-color;
+        }
+    </style>
+    <div class="card primary-container">
+        <form method="post">
+            <h1 class="headline-large on-primary-container-text" style="text-align: center;">Activate</h1>
+            <md-outlined-text-field style="display: flex;" label="Key" id="key" name="key" required></md-outlined-text-field>
+            <br>
+            <md-filled-button style="display: block;" onclick="event.target.closest('form').submit()" type="submit">Login</md-filled-button>
+        </form>
+    </div>
+</body>
+</html>

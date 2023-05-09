@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "webpack-cli": "^5.0.2"
+  },
+  "dependencies": {
+    "@maicol07/material-web-additions": "^1.2.12",
+    "@material/web": "file:material-web",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "rollup": "^2.79.1"
+  }
+}

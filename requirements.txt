@@ -1,0 +1,5 @@
+licensing
+flask
+requests
+bs4
+lxml

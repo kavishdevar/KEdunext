@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/static/js/material.js"></script>
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link rel="stylesheet" href="/static/css/colors.module.css">
+    <link rel="stylesheet" href="/static/css/tokens.css">
+    <link rel="stylesheet" href="/static/css/typography.module.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <title>Homework List</title>
+</head>
+<body class="background">
+    <div class="on-background-text">
+        <div id="body" class="body-medium">
+            <md-data-table paginated=true>
+                <md-data-table-column filterable sortable sorted>Date</md-data-table-column>
+                <md-data-table-column filterable sortable>Subject</md-data-table-column>
+                <md-data-table-column filterable sortable>Name</md-data-table-column>
+                <md-data-table-column filterable sortable>Description</md-data-table-column>
+                <md-data-table-column filterable sortable>Deadline</md-data-table-column>
+                <md-data-table-column filterable sortable>Attachments</md-data-table-column>
+                {% for key in ids -%}
+                    <md-data-table-row>
+                        <md-data-table-cell>{{homeworks[key]['date']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['subject']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['name']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['description']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['deadline']}}</md-data-table-cell>
+                        <md-data-table-cell>
+                            {% for name,url in homeworks[key]['attachments'].items() %}
+                                <a class="tertiary-text" href={{url}}>{{name}}</a>
+                            {% endfor %}
+                        </md-data-table-cell>
+                    </md-data-table-row>
+                    <!-- <md-divider></md-divider> -->
+                {% endfor %}
+            </md-data-table>
+        </div>
+    </div>
+</body>
+</html>

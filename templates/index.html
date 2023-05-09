@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/static/js/material.js"></script>
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link rel="stylesheet" href="/static/css/colors.module.css">
+    <link rel="stylesheet" href="/static/css/tokens.css">
+    <link rel="stylesheet" href="/static/css/typography.module.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <title>Homework List</title>
+</head>
+<body class="background">
+    <style>
+        body, html {width: 100%; height: 100%; margin: 0; padding: 0}
+        .row-container {display: flex; width: 100%; height: 100%; flex-direction: column; background-color: blue; overflow: hidden;}
+        .first-row {background-color: lime; }
+        .second-row { flex-grow: 1; border: none; margin: 0; padding: 0; }
+
+        .avatar {
+            vertical-align:auto;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+    <div class="on-background-text">
+        <script>
+            function circulars() {
+                e=document.getElementById(data)
+            }
+        </script>
+        <!-- <img src={{photoURL}} alt="Avatar" class="avatar"> -->
+        <md-tabs>
+            <md-tab onclick="assigments()">
+                <md-tab--label>
+                    <md-icon>menu_book</md-icon>
+                    <br>
+                    Homework
+                </md-tab--label>
+            </md-tab>
+            <md-tab onclick="circulars()">
+                <md-tab--label>
+                    <md-icon>feed</md-icon>
+                    <br>
+                    Circulars
+                </md-tab--label>
+            </md-tab>
+        </md-tabs>
+        <div id="body" class="body-medium row-container">
+            <iframe frameBorder="0" src="/homeworks" class="first-row">
+            <span class="second-row">asd</span>
+        </div>
+    </div>
+</body>
+</html>
