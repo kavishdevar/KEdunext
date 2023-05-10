@@ -33,13 +33,13 @@
             --md-elevation-level: 3;
         }
     </style>
-    <div class="card primary-container">
+    <div class="card primary-container" collapsed=true>
         <md-elevation></md-elevation>
         <form method="post">
             <h1 class="headline-large on-primary-container-text" style="text-align: center;">Login</h1>
             <md-outlined-text-field style="display: flex;" label="Admission Number" id="username" name="username" required><md-icon slot="leadingicon">person</md-icon></md-outlined-text-field>
             <br>
-            <md-outlined-text-field style="display: flex;" label="Password" id="password" name="password" type="password" required><md-icon slot="leadingicon">lock</md-icon></md-outlined-text-field>
+            <md-outlined-text-field style="display: flex;" label="Password" id="password" name="password" type="password" required><md-icon slot="leadingicon">password</md-icon></md-outlined-text-field>
             <br>
             <md-filled-button style="display: block;" onclick="event.target.closest('form').submit()" type="submit">Login</md-filled-button>
         </form>

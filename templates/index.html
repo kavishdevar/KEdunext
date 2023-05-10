@@ -10,49 +10,56 @@
     <link rel="stylesheet" href="/static/css/tokens.css">
     <link rel="stylesheet" href="/static/css/typography.module.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
-    <title>Homework List</title>
+    <title>KEdunext</title>
 </head>
 <body class="background">
     <style>
-        body, html {width: 100%; height: 100%; margin: 0; padding: 0}
-        .row-container {display: flex; width: 100%; height: 100%; flex-direction: column; background-color: blue; overflow: hidden;}
-        .first-row {background-color: lime; }
-        .second-row { flex-grow: 1; border: none; margin: 0; padding: 0; }
-
         .avatar {
             vertical-align:auto;
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            .pinned {
+                position: relative;
+                z-index: 1;
+            }
         }
     </style>
     <div class="on-background-text">
-        <script>
-            function circulars() {
-                e=document.getElementById(data)
-            }
-        </script>
-        <!-- <img src={{photoURL}} alt="Avatar" class="avatar"> -->
-        <md-tabs>
-            <md-tab onclick="assigments()">
-                <md-tab--label>
-                    <md-icon>menu_book</md-icon>
-                    <br>
-                    Homework
-                </md-tab--label>
-            </md-tab>
-            <md-tab onclick="circulars()">
-                <md-tab--label>
-                    <md-icon>feed</md-icon>
-                    <br>
-                    Circulars
-                </md-tab--label>
-            </md-tab>
-        </md-tabs>
-        <div id="body" class="body-medium row-container">
-            <iframe frameBorder="0" src="/homeworks" class="first-row">
-            <span class="second-row">asd</span>
-        </div>
+        <md-outlined-card class="homework-card" clickable="true" onclick="document.location.href='/homeworks'">
+            <div class="homework-card__header">
+                <div class="homework-card__header-text">
+                    <div class="homework-card__title headline-large">Homework</div>
+                    <div class="homework-card__subtitle">Check your homework list!</div>
+                </div>
+            </div>
+            <div class="homework-card__secondary mdc-typography mdc-typography--body2">
+                Recent Homeworks:
+                <br>
+                <md-data-table>
+                    <md-data-table-column filterable sortable>Subject</md-data-table-column>
+                    <md-data-table-column filterable sortable>Name</md-data-table-column>
+                    <md-data-table-column filterable sortable>Deadline</md-data-table-column>
+                    {% for key in ids -%}
+                        {% if loop.index <= 5 %}
+                            <md-data-table-row>
+                                <md-data-table-cell>{{homeworks[key]['subject']}}</md-data-table-cell>
+                                <md-data-table-cell>{{homeworks[key]['name']}}</md-data-table-cell>
+                                <md-data-table-cell>{{homeworks[key]['deadline']}}</md-data-table-cell>
+                            </md-data-table-row>
+                        {% endif %}
+                    {% endfor %}
+                </md-data-table>
+            </div>
+            <md-outlined-button slot="button">Read</md-outlined-button>
+            <md-filled-button slot="button">Bookmark</md-filled-button>
+            <md-standard-icon-button slot="icon">
+                <md-icon>push_pin</md-icon>
+            </md-standard-icon-button>
+            <md-standard-icon-button slot="icon">
+                <md-icon>hide</md-icon>
+            </md-standard-icon-button>
+        </md-outlined-card>
     </div>
 </body>
 </html>

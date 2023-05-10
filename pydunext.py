@@ -98,5 +98,5 @@ if '__main__' == __name__:
     username = input("Enter your admission number: ")
     password = input("Enter your password: ")
     user = User(username, password)
-    print(user.hwlist)
+    # print(user.hwlist)
     print(user.circularlist)

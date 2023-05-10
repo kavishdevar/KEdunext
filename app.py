@@ -40,8 +40,8 @@ def index():
         return redirect(url_for('login'))
     if 'user'+request.cookies['username'] not in globals():# or time.time() - globals()['user'+request.cookies['username']].retrieved > 10:
         globals()['user'+request.cookies['username']]=pydunext.User(request.cookies['username'],request.cookies['password'])
-    return render_template('index.html')
-    # return render_template('index.html',homeworks=globals()['user'+request.cookies['username']].hwlist,ids=globals()['user'+request.cookies['username']].hwlist.keys(),photoURL=globals()['user'+request.cookies['username']].photoURL)
+    # return render_template('index.html')
+    return render_template('index.html',homeworks=globals()['user'+request.cookies['username']].hwlist,ids=globals()['user'+request.cookies['username']].hwlist.keys(),photoURL=globals()['user'+request.cookies['username']].photoURL)
 
 if __name__=="__main__":
     app.run(port=8080, debug=True)
