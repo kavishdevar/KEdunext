@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,20 +10,23 @@
     <link rel="stylesheet" href="/static/css/colors.module.css">
     <link rel="stylesheet" href="/static/css/tokens.css">
     <link rel="stylesheet" href="/static/css/typography.module.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
     <title>Login</title>
 </head>
+
 <body class="background">
     <style>
-	:root {
-	    --md-icon-font: 'Material Symbols Rounded'
-	}
+        :root {
+            --md-icon-font: 'Material Symbols Rounded'
+        }
+
         .card {
             width: 50%;
             /* height: 50%; */
             max-height: 300px;
             position: absolute;
-            top:0;
+            top: 0;
             bottom: 0;
             left: 0;
             right: 0;
@@ -33,16 +37,32 @@
             --md-elevation-level: 3;
         }
     </style>
-    <div class="card primary-container" collapsed=true>
+    <script>
+        function toggleVisibility() {
+            var ep = document.getElementById("password");
+            if (ep.type === "password") {
+                ep.type = "text";
+            } else {
+                ep.type = "password";
+            }
+        }  
+    </script>
+    <div class="card primary-container">
         <md-elevation></md-elevation>
         <form method="post">
             <h1 class="headline-large on-primary-container-text" style="text-align: center;">Login</h1>
-            <md-outlined-text-field style="display: flex;" label="Admission Number" id="username" name="username" required><md-icon slot="leadingicon">person</md-icon></md-outlined-text-field>
+            <md-outlined-text-field style="display: flex;" label="Admission Number" id="username" name="username"
+                required><md-icon slot="leadingicon">person</md-icon></md-outlined-text-field>
             <br>
-            <md-outlined-text-field style="display: flex;" label="Password" id="password" name="password" type="password" required><md-icon slot="leadingicon">password</md-icon></md-outlined-text-field>
+            <md-outlined-text-field style="display: flex;" label="Password" id="password"
+                name="password" type="password" required>
+                <md-icon slot="leadingicon">password</md-icon>
+            </md-outlined-text-field>
             <br>
-            <md-filled-button style="display: block;" onclick="event.target.closest('form').submit()" type="submit">Login</md-filled-button>
+            <md-filled-button style="display: block;" onclick="event.target.closest('form').submit()"
+                type="submit">Login</md-filled-button>
         </form>
     </div>
 </body>
+
 </html>

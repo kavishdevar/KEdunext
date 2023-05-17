@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/static/css/card.css">
     <link rel="stylesheet" href="/static/css/topappbar.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
-    <title>Homework List</title>
+    <title>Circular List</title>
     <script>
         window.onload = function () {
             var topappbar = document.getElementById("topappbar");
@@ -31,11 +31,11 @@
                 topappbar.classList.remove("primary-container")
             }
         };
-        window.addEventListener('scroll', fixtopappbar);
     </script>
+
 </head>
 
-<body class="background">
+<body class="background" style="margin:0;" onscroll="fixtopappbar()">
     <div class="topappbar surface-container" id="topappbar" name="topappbar">
         <md-elevation style="--md-elevation-level: 2;"></md-elevation>
         <div class="topappbar__row">
@@ -55,33 +55,36 @@
             </section>
         </div>
     </div>
-    <div class="on-background-text">
+    <main class="on-background-text" style="margin: 8px">
         <div id="body" class="body-medium">
-            <md-data-table paginated=true style="border-radius: 28px">
-                <md-data-table-column filterable sortable sorted>Date</md-data-table-column>
-                <md-data-table-column filterable sortable>Subject</md-data-table-column>
-                <md-data-table-column filterable sortable>Name</md-data-table-column>
-                <md-data-table-column filterable sortable>Description</md-data-table-column>
-                <md-data-table-column filterable sortable>Deadline</md-data-table-column>
-                <md-data-table-column filterable sortable>Attachments</md-data-table-column>
-                {% for key in ids -%}
-                <md-data-table-row>
-                    <md-data-table-cell>{{homeworks[key]['date']}}</md-data-table-cell>
-                    <md-data-table-cell>{{homeworks[key]['subject']}}</md-data-table-cell>
-                    <md-data-table-cell>{{homeworks[key]['name']}}</md-data-table-cell>
-                    <md-data-table-cell>{{homeworks[key]['description']}}</md-data-table-cell>
-                    <md-data-table-cell>{{homeworks[key]['deadline']}}</md-data-table-cell>
-                    <md-data-table-cell>
-                        {% for name,url in homeworks[key]['attachments'].items() %}
-                        <a class="primary-text" href={{url}}>{{name}}</a>
-                        {% endfor %}
-                    </md-data-table-cell>
-                </md-data-table-row>
-                <!-- <md-divider></md-divider> -->
-                {% endfor %}
-            </md-data-table>
+            <md-filter-chip label="Monthly Planner"><md-icon slot="icon">calendar_month</md-icon></md-filter-chip>
+            <md-filter-chip label="School Newsletter"><md-icon slot="icon">feed</md-icon></md-filter-chip>
+            <md-filter-chip label="School Circulars"><md-icon slot="icon">description</md-icon></md-filter-chip>
+            <br><br>
+            {% for key in ids %}
+            <md-outlined-card class="card" style="width: 100%;">
+                <md-elevation></md-elevation>
+                <div class="card__header">
+                    <div class="card__header-text">
+                        <div class="card__title">{{key}}</div>
+                        <div class="card__subtitle">{{circulars[key]['date']}}</div>
+                    </div>
+                </div>
+                <div class="card__secondary body-medium">
+                    {{circulars[key]['description']}}
+                    <br>
+                    Attachments:
+                    <br>
+                    {% for name,url in circulars[key]['attachments'].items() %}
+                    <a class="primary-text" href={{url}}>{{name}}</a>
+                    {% endfor %}
+                    <br>
+                </div>
+            </md-outlined-card>
+            <br><br>
+            {% endfor %}
         </div>
-    </div>
+        </div>
 </body>
 
 </html>

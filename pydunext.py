@@ -79,6 +79,7 @@ class User():
         out = response.text
         soup = BeautifulSoup(out, "html.parser")
         circulars = {}
+        attachmentsElements=soup.find_all('a',{'rel': 'noopener noreferrer nofollow'})
         # Find the table element by its class or ID attribute
         for i in range(1,50):
             hrefval='#accordion-control-group'+str(i)
@@ -88,12 +89,15 @@ class User():
             else:
                 name=name[0]
             data=soup.find_all('div',{'id': 'accordion-control-group'+str(i)})[0]
-            attachmentse=soup.find_all('a',{'rel': 'noopener noreferrer nofollow'})[0]
+            attachmentse=attachmentsElements[i-1]
             description=data.text.split('Attachment')[0].split('\n\n\n Description:\n')[1].replace('\r\n                                ','').replace('\n                        ','')
-            circulars[name.text.replace('  ','').replace('\n','').replace('\r','').replace('\xa0\xa0\xa0\xa0Circular Subject:','')]={'description': description, 'attachments': []}
+            text = name.text.replace('  ','').replace('\n','').replace('\r','').replace('\xa0\xa0\xa0\xa0Circular Subject:','')
+            date,title = text.strip().split(" ",2)[2].split(" ",1)
+            circulars[title]={'description': description, 'date': date, 'attachments': {}}
             if attachmentse['href'] != "https://edunexttechnologies.com":
-                circulars[name.text.replace('  ','').replace('\n','').replace('\r','').replace('\xa0\xa0\xa0\xa0Circular Subject:','')]['attachments'].append({attachmentse.text.replace('\r\n                                ',''): "https://dpsgurgaon84.edunext1.com"+attachmentse['href']})
+                circulars[title]['attachments'][attachmentse.text.replace('\r\n                                ','')]="https://dpsgurgaon84.edunext1.com"+attachmentse['href']
         return circulars
+
 if '__main__' == __name__:
     username = input("Enter your admission number: ")
     password = input("Enter your password: ")

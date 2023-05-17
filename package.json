@@ -4,8 +4,13 @@
   },
   "dependencies": {
     "@maicol07/material-web-additions": "^1.2.12",
+    "@material/icon-button": "^14.0.0",
+    "@material/top-app-bar": "^14.0.0",
     "@material/web": "file:material-web",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "rollup": "^2.79.1"
+  },
+  "scripts": {
+      "scss": "node-sass — watch ./static/scss -o static/css"
   }
 }

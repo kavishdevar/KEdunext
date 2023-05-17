@@ -9,39 +9,45 @@
     <link rel="stylesheet" href="/static/css/colors.module.css">
     <link rel="stylesheet" href="/static/css/tokens.css">
     <link rel="stylesheet" href="/static/css/typography.module.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
+    <link rel="stylesheet" href="/static/css/card.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <title>KEdunext</title>
 </head>
 <body class="background">
     <style>
+	body {--md-focus-ring-shape: 8px;}
         .avatar {
             vertical-align:auto;
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            .pinned {
-                position: relative;
-                z-index: 1;
-            }
+        }
+        .pinned {
+            position: relative;
+            z-index: 1;
         }
     </style>
     <div class="on-background-text">
-        <md-outlined-card class="homework-card" clickable="true" onclick="document.location.href='/homeworks'">
-            <div class="homework-card__header">
-                <div class="homework-card__header-text">
-                    <div class="homework-card__title headline-large">Homework</div>
-                    <div class="homework-card__subtitle">Check your homework list!</div>
-                </div>
-            </div>
-            <div class="homework-card__secondary mdc-typography mdc-typography--body2">
-                Recent Homeworks:
+        <md-outlined-card class="card">
+          <div class="card__header">
+              <div class="card-thumbnail">
+                <md-icon slot="thumbnail" class="card__thumbnail-image">book</md-icon>
+              </div>
+              <div class="card__header-text">
+                  <div class="card__title">Homeworks</div>
+                  <div class="card__subtitle">Check out the homework list!</div>
+              </div>
+          </div>
+          <div class="card__secondary body-medium">
+            Recent homeworks:
                 <br>
                 <md-data-table>
-                    <md-data-table-column filterable sortable>Subject</md-data-table-column>
-                    <md-data-table-column filterable sortable>Name</md-data-table-column>
-                    <md-data-table-column filterable sortable>Deadline</md-data-table-column>
+                    <md-data-table-column>Subject</md-data-table-column>
+                    <md-data-table-column>Name</md-data-table-column>
+                    <md-data-table-column>Deadline</md-data-table-column>
                     {% for key in ids -%}
-                        {% if loop.index <= 5 %}
+                        {% if loop.index <= 2 %}
                             <md-data-table-row>
                                 <md-data-table-cell>{{homeworks[key]['subject']}}</md-data-table-cell>
                                 <md-data-table-cell>{{homeworks[key]['name']}}</md-data-table-cell>
@@ -50,14 +56,48 @@
                         {% endif %}
                     {% endfor %}
                 </md-data-table>
+          </div>
+          <md-tonal-button slot="button" onclick="document.location.href='/homeworks'">Open<md-icon slot="icon">open_in_new</md-icon></md-tonal-button>
+          <md-standard-icon-button slot="icon" toggle>
+              <md-icon>push_pin</md-icon>
+	      <md-icon slot="selectedIcon" class="on-primary">push_pin</md-icon>
+          </md-standard-icon-button>
+        </md-outlined-card>
+        <md-outlined-card class="card">
+            <div class="card__header">
+                <div class="card-thumbnail">
+                  <md-icon slot="thumbnail" class="card__thumbnail-image">newspaper</md-icon>
+                </div>
+                <div class="card__header-text">
+                    <div class="card__title">Circulars</div>
+                    <div class="card__subtitle">Check out the circulars!</div>
+                </div>
             </div>
-            <md-outlined-button slot="button">Read</md-outlined-button>
-            <md-filled-button slot="button">Bookmark</md-filled-button>
-            <md-standard-icon-button slot="icon">
+            <div class="card__secondary body-medium">
+              Recent circulars:
+                  <br>
+                  <md-data-table>
+                      <md-data-table-column>Name</md-data-table-column>
+                      <md-data-table-column>Files</md-data-table-column>
+                      {% for key in circularids -%}
+                          {% if loop.index <= 2 %}
+                              <md-data-table-row>
+                                  <md-data-table-cell style="text-overflow: ellipsis">{{key}}</md-data-table-cell>
+                                  <md-data-table-cell style="text-overflow: ellipsis">
+                                    {% for name,url in circulars[key]['attachments'].items() %}
+                                        <a class="primary-text" href={{url}} id={{name}}>{{name}}</a>
+                                        <md-focus-ring for={{name}}></md-focus-ring>
+                                    {% endfor %}
+                                </md-data-table-cell>
+                              </md-data-table-row>
+                          {% endif %}
+                      {% endfor %}
+                  </md-data-table>
+            </div>
+            <md-tonal-button slot="button" onclick="document.location.href='/circulars'">Open<md-icon slot="icon">open_in_new</md-icon></md-tonal-button>
+            <md-standard-icon-button slot="icon" toggle>
                 <md-icon>push_pin</md-icon>
-            </md-standard-icon-button>
-            <md-standard-icon-button slot="icon">
-                <md-icon>hide</md-icon>
+                <md-icon slot="selectedIcon" class="on-primary">push_pin</md-icon>
             </md-standard-icon-button>
         </md-outlined-card>
     </div>
