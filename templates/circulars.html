@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/static/js/material.js"></script>
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link rel="stylesheet" href="/static/css/colors.module.css">
+    <link rel="stylesheet" href="/static/css/tokens.css">
+    <link rel="stylesheet" href="/static/css/typography.module.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
+    <link rel="stylesheet" href="/static/css/card.css">
+    <link rel="stylesheet" href="/static/css/topappbar.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <title>Circular List</title>
+    <script>
+        window.onload = function () {
+            var topappbar = document.getElementById("topappbar");
+        };
+        function fixtopappbar() {
+            if (window.scrollY > 0) {
+                topappbar.style.position = 'fixed'
+                topappbar.style.top = '0'
+                topappbar.style.zIndex = 100000
+                topappbar.style.width = '100%'
+                topappbar.classList.add("surface-container")
+            } else {
+                topappbar.style.position = 'static'
+                topappbar.classList.remove("surface-container")
+            }
+        };
+        window.addEventListener('scroll', fixtopappbar);
+    </script>
+</head>
+<body class="background" style="margin:0px;" onscroll="fixtopappbar()">
+    <div class="topappbar surface" id="topappbar" name="topappbar">
+        <!-- <md-elevation style="--md-elevation-level: 2;"></md-elevation> -->
+        <div class="topappbar__row">
+            <section class="topappbar__section topappbar__section--align-start">
+                <md-standard-icon-button class="topappbar__navigation-icon" href="/">
+                    <md-icon>arrow_back</md-icon>
+                </md-standard-icon-button>
+                <span class="topappbar__title title-large on-background-text">Circulars</span>
+            </section>
+            <section class="topappbar__section topappbar__section--align-center">
+            </section>
+            <section class="topappbar__section topappbar__section--align-end" style="vertical-align: middle;">
+                <img src="{{photoURL}}" id="avatar" class="topappbar__avatar">
+                <md-focus-ring for="avatar"></md-focus-ring>
+            </section>
+        </div>
+    </div>
+    <md-divider></md-divider>
+    <script>
+        window.onload = function() {
+            var mpFilter = document.getElementById("mpFilter");
+            var snFilter = document.getElementById("snFilter");
+            var scFilter = document.getElementById("scFilter");
+        }
+        function filter() {
+            if (mpFilter.selected) {
+                
+            }
+        }
+    </script>
+    <main class="on-background-text" style="margin: 8px">
+        <div id="body" class="body-medium">
+            <md-filter-chip label="Monthly Planner" id="mpFilter" onclick="filter()"><md-icon slot="icon">calendar_month</md-icon></md-filter-chip>
+            <md-filter-chip label="School Newsletter" id="snFilter" onclick="filter()"><md-icon slot="icon">newspaper</md-icon></md-filter-chip>
+            <md-filter-chip label="School Circulars" id="scFilter" onclick="filter()" ><md-icon slot="icon">description</md-icon></md-filter-chip>
+            <br><br>
+            {% for key in ids %}
+            <md-outlined-card class="card" style="width: 100%;">
+                <md-elevation></md-elevation>
+                <div class="card__header">
+                    <div class="card__header-text">
+                        <div class="card__title">{{key}}</div>
+                        <div class="card__subtitle">{{circulars[key]['date']}}</div>
+                    </div>
+                </div>
+                <div class="card__secondary body-medium">
+                    {{circulars[key]['description']}}
+                    <br>
+                    Attachments:
+                    <br>
+                    {% for name,url in circulars[key]['attachments'].items() %}
+                    <a class="primary-text" href={{url}}>{{name}}</a>
+                    {% endfor %}
+                    <br>
+                </div>
+            </md-outlined-card>
+            <br><br>
+            {% endfor %}
+        </div>
+        </div>
+</body>
+
+</html>

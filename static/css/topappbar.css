@@ -1,0 +1,92 @@
+
+.topappbar {
+    background-color: var('--md-sys-color-primary-dark');
+    /* background-color: aqua; */
+    --md-elevation-level: 2;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 56px;
+}
+
+.topappbar__title {
+    color: var('--md-sys-color-on-surface');
+    font-family: var('--md-sys-typescale-title-large-font-family-name');
+    font-style: var('--md-sys-typescale-title-large-font-family-style');
+    font-weight: var('--md-sys-typescale-title-large-font-weight');
+    font-size: var('--md-sys-typescale-title-large-font-size');
+    letter-spacing: var('--md-sys-typescale-title-large-tracking');
+    line-height: var('--md-sys-typescale-title-large-height');
+    text-transform: var('--md-sys-typescale-title-large-text-transform');
+    text-decoration: var('--md-sys-typescale-title-large-text-decoration');
+}
+
+.topappbar__avatar {
+    border-radius: 15px;
+    height: 30px;
+    width: 30px;
+    font-size: 24px;
+    margin-left: 16px;
+}
+
+.topappbar__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    width: 100%;
+    /* padding: 0 16px; */
+}
+
+.topappbar__section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.topappbar__navigation-icon {
+    color: var('--md-sys-color-on-surface');
+    cursor: pointer;
+    font-size: 24px;
+    margin-right: 16px;
+}
+
+.topappbar__section--align-start {
+    justify-content: flex-start;
+}
+
+.topappbar__section--align-end {
+    justify-content: flex-end;
+}
+
+.topappbar__section--align-center {
+    justify-content: center;
+}
+
+.topappbar__action-item {
+    color: var('--md-sys-color-on-surface');
+    cursor: pointer;
+    font-size: 24px;
+    margin-left: 16px;
+}
+
+.topappbar.bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+.topappbar.top {
+    position: fixed;
+    top: 0;
+}
+
+.topappbar__toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    padding: 0 16px;
+    z-index: 1000;
+}
