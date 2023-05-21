@@ -17,7 +17,31 @@
     <title>Homework List</title>
     <script>
         window.onload = function () {
+            var toolbar = document.getElementById("toolbar")
+            var expandToolbarIcon = document.getElementById("expandToolbarIcon")
             var topappbar = document.getElementById("topappbar");
+
+            var tablee = document.getElementById("hwtable")
+            var gride = document.getElementById("hwCardGrid")
+            var liste = document.getElementById("hwCardList")
+            var tableb = document.getElementById("tableb")
+            var gridb = document.getElementById("gridb")
+            var listb = document.getElementById("listb")
+            if (tableb.selected) {
+                tablee.hidden = false
+                gride.hidden = true
+                liste.hidden = true
+            }
+            if (gridb.selected) {
+                tablee.hidden = true
+                gride.hidden = false
+                liste.hidden = true
+            }
+            if (listb.selected) {
+                tablee.hidden = true
+                gride.hidden = true
+                liste.hidden = false
+            }
         };
         function fixtopappbar() {
             if (window.scrollY > 0) {
@@ -25,59 +49,83 @@
                 topappbar.style.top = '0'
                 topappbar.style.zIndex = 100000
                 topappbar.style.width = '100%'
-                topappbar.classList.add("primary-container")
+                topappbar.classList.add("surface-container")
             } else {
                 topappbar.style.position = 'static'
-                topappbar.classList.remove("primary-container")
+                topappbar.classList.remove("surface-container")
             }
         };
         window.addEventListener('scroll', fixtopappbar);
     </script>
 </head>
 
-<body class="background">
-    <div class="topappbar surface-container" id="topappbar" name="topappbar">
+<body class="background" style="margin: 0px;">
+    <div class="topappbar surface" id="topappbar" name="topappbar">
         <md-elevation style="--md-elevation-level: 2;"></md-elevation>
         <div class="topappbar__row">
             <section class="topappbar__section topappbar__section--align-start">
                 <md-standard-icon-button class="topappbar__navigation-icon" href="/">
                     <md-icon>arrow_back</md-icon>
                 </md-standard-icon-button>
+                <span class="topappbar__title title-large on-background-text">Homeworks</span>
             </section>
             <section class="topappbar__section topappbar__section--align-center">
-                <span class="topappbar__title title-large on-background-text">Circulars</span>
             </section>
-            <section class="topappbar__section topappbar__section--align-end">
+            <section class="topappbar__section topappbar__section--align-end" style="vertical-align: middle;">
                 <img src="{{photoURL}}" class="topappbar__avatar">
                 <md-standard-icon-button class="topappbar__action-item" href="/logout">
-                    <md-icon class="on-surface-variant">logout</md-icon>
+                    <md-icon>logout</md-icon>
                 </md-standard-icon-button>
             </section>
         </div>
     </div>
-    <div class="on-background-text">
+    <script>
+        function changeView() {
+            var tablee = document.getElementById("hwtable")
+            var gride = document.getElementById("hwCardGrid")
+            var liste = document.getElementById("hwCardList")
+            var tableb = document.getElementById("tableb")
+            var gridb = document.getElementById("gridb")
+            var listb = document.getElementById("listb")
+            if (tableb.selected) {
+                tablee.hidden = false
+                gride.hidden = true
+                liste.hidden = true
+            }
+            if (gridb.selected) {
+                tablee.hidden = true
+                gride.hidden = false
+                liste.hidden = true
+            }
+            if (listb.selected) {
+                tablee.hidden = true
+                gride.hidden = true
+                liste.hidden = false
+            }
+        }
+    </script>
+    <div class="on-background-text" style="margin: 8px">
         <div id="body" class="body-medium">
-            <md-data-table paginated=true style="border-radius: 28px">
+            <md-data-table paginated=true style="border-radius: 28px" id="hwtable">
+                <md-data-table-column filterable sortable>Description</md-data-table-column>
                 <md-data-table-column filterable sortable sorted>Date</md-data-table-column>
                 <md-data-table-column filterable sortable>Subject</md-data-table-column>
                 <md-data-table-column filterable sortable>Name</md-data-table-column>
-                <md-data-table-column filterable sortable>Description</md-data-table-column>
                 <md-data-table-column filterable sortable>Deadline</md-data-table-column>
                 <md-data-table-column filterable sortable>Attachments</md-data-table-column>
                 {% for key in ids -%}
-                <md-data-table-row>
-                    <md-data-table-cell>{{homeworks[key]['date']}}</md-data-table-cell>
-                    <md-data-table-cell>{{homeworks[key]['subject']}}</md-data-table-cell>
-                    <md-data-table-cell>{{homeworks[key]['name']}}</md-data-table-cell>
-                    <md-data-table-cell>{{homeworks[key]['description']}}</md-data-table-cell>
-                    <md-data-table-cell>{{homeworks[key]['deadline']}}</md-data-table-cell>
-                    <md-data-table-cell>
-                        {% for name,url in homeworks[key]['attachments'].items() %}
-                        <a class="primary-text" href={{url}}>{{name}}</a>
-                        {% endfor %}
-                    </md-data-table-cell>
-                </md-data-table-row>
-                <!-- <md-divider></md-divider> -->
+                    <md-data-table-row>
+                        <md-data-table-cell>{{homeworks[key]['date']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['subject']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['name']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['description']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['deadline']}}</md-data-table-cell>
+                        <md-data-table-cell>
+                            {% for name,url in homeworks[key]['attachments'].items() %}
+                            <a class="primary-text" href={{url}}>{{name}}</a>
+                            {% endfor %}
+                        </md-data-table-cell>
+                    </md-data-table-row>
                 {% endfor %}
             </md-data-table>
         </div>

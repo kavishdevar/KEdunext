@@ -4,6 +4,9 @@
     /* background-color: aqua; */
     --md-elevation-level: 2;
     overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 64px;
 }
 
 .topappbar__title {
@@ -75,4 +78,14 @@
 .topappbar.top {
     position: fixed;
     top: 0;
+}
+
+.topappbar__toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    padding: 0 16px;
+    z-index: 1000;
 }
