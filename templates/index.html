@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,63 +11,98 @@
     <link rel="stylesheet" href="/static/css/tokens.css">
     <link rel="stylesheet" href="/static/css/typography.module.css">
     <link rel="stylesheet" href="/static/css/fonts.css">
+    <link rel="stylesheet" href="/static/css/topappbar.css">
     <link rel="stylesheet" href="/static/css/card.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <title>KEdunext</title>
+    <script>
+        window.onload = function () {
+            var topappbar = document.getElementById("topappbar");
+        };
+        function fixtopappbar() {
+            if (window.scrollY > 0) {
+                topappbar.style.position = 'fixed'
+                topappbar.style.top = '0'
+                topappbar.style.zIndex = 100000
+                topappbar.style.width = '100%'
+                topappbar.classList.add("surface-container")
+            } else {
+                topappbar.style.position = 'static'
+                topappbar.classList.remove("surface-container")
+            }
+        };
+        window.addEventListener('scroll', fixtopappbar);
+    </script>
 </head>
-<body class="background">
+
+<body class="background" style="margin: 0px;">
     <style>
-	body {--md-focus-ring-shape: 8px;}
         .avatar {
-            vertical-align:auto;
+            vertical-align: auto;
             width: 50px;
             height: 50px;
             border-radius: 50%;
         }
+
         .pinned {
             position: relative;
             z-index: 1;
         }
     </style>
-    <div class="on-background-text">
+    <div class="topappbar surface" id="topappbar" name="topappbar">
+        <!-- <md-elevation style="--md-elevation-level: 2;"></md-elevation> -->
+        <div class="topappbar__row">
+            <section class="topappbar__section topappbar__section--align-start">
+                <span class="topappbar__title title-large on-background-text">KEdunext</span>
+            </section>
+            <section class="topappbar__section topappbar__section--align-center">
+            </section>
+            <section class="topappbar__section topappbar__section--align-end" style="vertical-align: middle;">
+                <img src="{{photoURL}}" id="avatar" class="topappbar__avatar">
+                <md-focus-ring for="avatar"></md-focus-ring>
+            </section>
+        </div>
+    </div>
+    <md-divider></md-divider>
+    <div class="on-background-text" style="margin: 8px;">
         <md-outlined-card class="card">
-          <div class="card__header">
-              <div class="card-thumbnail">
-                <md-icon slot="thumbnail" class="card__thumbnail-image">book</md-icon>
-              </div>
-              <div class="card__header-text">
-                  <div class="card__title">Homeworks</div>
-                  <div class="card__subtitle">Check out the homework list!</div>
-              </div>
-          </div>
-          <div class="card__secondary body-medium">
-            Recent homeworks:
+            <div class="card__header">
+                <div class="card-thumbnail">
+                    <md-icon slot="thumbnail" class="card__thumbnail-image">book</md-icon>
+                </div>
+                <div class="card__header-text">
+                    <div class="card__title">Homeworks</div>
+                    <div class="card__subtitle">Check out the homework list!</div>
+                </div>
+            </div>
+            <div class="card__secondary body-medium">
+                Recent homeworks:
                 <br>
                 <md-data-table>
                     <md-data-table-column>Subject</md-data-table-column>
                     <md-data-table-column>Name</md-data-table-column>
                     <md-data-table-column>Deadline</md-data-table-column>
                     {% for key in ids -%}
-                        {% if loop.index <= 2 %}
-                            <md-data-table-row>
-                                <md-data-table-cell>{{homeworks[key]['subject']}}</md-data-table-cell>
-                                <md-data-table-cell>{{homeworks[key]['name']}}</md-data-table-cell>
-                                <md-data-table-cell>{{homeworks[key]['deadline']}}</md-data-table-cell>
-                            </md-data-table-row>
+                    {% if loop.index <= 2 %} <md-data-table-row>
+                        <md-data-table-cell>{{homeworks[key]['subject']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['name']}}</md-data-table-cell>
+                        <md-data-table-cell>{{homeworks[key]['deadline']}}</md-data-table-cell>
+                        </md-data-table-row>
                         {% endif %}
-                    {% endfor %}
+                        {% endfor %}
                 </md-data-table>
-          </div>
-          <md-tonal-button slot="button" onclick="document.location.href='/homeworks'">Open<md-icon slot="icon">open_in_new</md-icon></md-tonal-button>
-          <md-standard-icon-button slot="icon" toggle>
-              <md-icon>push_pin</md-icon>
-	      <md-icon slot="selectedIcon" class="on-primary">push_pin</md-icon>
-          </md-standard-icon-button>
+            </div>
+            <md-tonal-button slot="button" onclick="document.location.href='/homeworks'">Open<md-icon
+                    slot="icon">open_in_new</md-icon></md-tonal-button>
+            <md-standard-icon-button slot="icon" toggle>
+                <md-icon>push_pin</md-icon>
+                <md-icon slot="selectedIcon" class="on-primary">push_pin</md-icon>
+            </md-standard-icon-button>
         </md-outlined-card>
         <md-outlined-card class="card">
             <div class="card__header">
                 <div class="card-thumbnail">
-                  <md-icon slot="thumbnail" class="card__thumbnail-image">newspaper</md-icon>
+                    <md-icon slot="thumbnail" class="card__thumbnail-image">newspaper</md-icon>
                 </div>
                 <div class="card__header-text">
                     <div class="card__title">Circulars</div>
@@ -74,27 +110,27 @@
                 </div>
             </div>
             <div class="card__secondary body-medium">
-              Recent circulars:
-                  <br>
-                  <md-data-table>
-                      <md-data-table-column>Name</md-data-table-column>
-                      <md-data-table-column>Files</md-data-table-column>
-                      {% for key in circularids -%}
-                          {% if loop.index <= 2 %}
-                              <md-data-table-row>
-                                  <md-data-table-cell style="text-overflow: ellipsis">{{key}}</md-data-table-cell>
-                                  <md-data-table-cell style="text-overflow: ellipsis">
-                                    {% for name,url in circulars[key]['attachments'].items() %}
-                                        <a class="primary-text" href={{url}} id={{name}}>{{name}}</a>
-                                        <md-focus-ring for={{name}}></md-focus-ring>
-                                    {% endfor %}
-                                </md-data-table-cell>
-                              </md-data-table-row>
-                          {% endif %}
-                      {% endfor %}
-                  </md-data-table>
+                Recent circulars:
+                <br>
+                <md-data-table>
+                    <md-data-table-column>Name</md-data-table-column>
+                    <md-data-table-column>Files</md-data-table-column>
+                    {% for key in circularids -%}
+                    {% if loop.index <= 2 %} <md-data-table-row>
+                        <md-data-table-cell style="text-overflow: ellipsis">{{key}}</md-data-table-cell>
+                        <md-data-table-cell style="text-overflow: ellipsis">
+                            {% for name,url in circulars[key]['attachments'].items() %}
+                            <a class="primary-text" href={{url}} id={{name}}>{{name}}</a>
+                            <md-focus-ring for={{name}}></md-focus-ring>
+                            {% endfor %}
+                        </md-data-table-cell>
+                        </md-data-table-row>
+                        {% endif %}
+                        {% endfor %}
+                </md-data-table>
             </div>
-            <md-tonal-button slot="button" onclick="document.location.href='/circulars'">Open<md-icon slot="icon">open_in_new</md-icon></md-tonal-button>
+            <md-tonal-button slot="button" onclick="document.location.href='/circulars'">Open<md-icon
+                    slot="icon">open_in_new</md-icon></md-tonal-button>
             <md-standard-icon-button slot="icon" toggle>
                 <md-icon>push_pin</md-icon>
                 <md-icon slot="selectedIcon" class="on-primary">push_pin</md-icon>
@@ -102,4 +138,5 @@
         </md-outlined-card>
     </div>
 </body>
+
 </html>
