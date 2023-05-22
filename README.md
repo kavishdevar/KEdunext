@@ -2,6 +2,8 @@
 ## A 3rd party (WIP) API/App/Website for the Edunext School ERP for students.
 ### This is a work in progress project. I am not affiliated with Edunext in any way.
 
+### The list for all platforms will be maintained on this repo itself.
+### API to be made public and open-source soon
 - **Alpha** features are in-development and may have many frequent breaking changes.
 - **Beta** features are mostly polished and ready for use (but you'll have to figure how to use it yourself).
 - **Stable** features are reviewed, documented, and ready for use.
