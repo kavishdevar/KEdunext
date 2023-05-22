@@ -1,5 +1,4 @@
-licensing
 flask
-requests
-bs4
 lxml
+bs4
+requests

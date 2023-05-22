@@ -19,15 +19,16 @@
 ## 1.0 Features
 | Feature | API | App | Website |
 |---------|-----|-----|---------|
-| Login | :heavy_check_mark: | :x: | :heavy_check_mark: |
-| View Profile | :yellow_circle: | :x: | :yellow_circle: |
+| Login | :yellow_circle: | :x: | :yellow_circle: |
+| View Profile | :x: | :x: | :x: |
 | View Attendance | :x: | :x: | :x: |
-| View Assignments | :heavy_check_mark: | :x: | :yellow_circle: |
-| View Circulars | :yellow_circle: | :x: | :x: |
+| View Assignments | :green_circle: | :x: | :green_circle: |
+| View Circulars | :green_circle: | :x: | :green_circle: |
 
 ## 1.1+ Features
 | Feature | API | App | Website |
 |---------|-----|-----|---------|
+| Site-Wide Search | :x: | :x: | :x: | 
 | View Fees | :x: | :x: | :x: |
 | View Library | :x: | :x: | :x: |
 | View Transport | :x: | :x: | :x: |
