@@ -1,8 +1,9 @@
-# Pydunext
+# KEdunext
 ## A 3rd party (WIP) API/App/Website for the Edunext School ERP for students.
 ### This is a work in progress project. I am not affiliated with Edunext in any way.
-### This project is neither endorsed by nor affiliated with Edunext.
 
+### The list for all platforms will be maintained on this repo itself.
+### API to be made public and open-source soon
 - **Alpha** features are in-development and may have many frequent breaking changes.
 - **Beta** features are mostly polished and ready for use (but you'll have to figure how to use it yourself).
 - **Stable** features are reviewed, documented, and ready for use.
@@ -19,15 +20,16 @@
 ## 1.0 Features
 | Feature | API | App | Website |
 |---------|-----|-----|---------|
-| Login | :heavy_check_mark: | :x: | :heavy_check_mark: |
-| View Profile | :yellow_circle: | :x: | :yellow_circle: |
+| Login | :yellow_circle: | :x: | :yellow_circle: |
+| View Profile | :x: | :x: | :x: |
 | View Attendance | :x: | :x: | :x: |
-| View Assignments | :heavy_check_mark: | :x: | :yellow_circle: |
-| View Circulars | :yellow_circle: | :x: | :x: |
+| View Assignments | :green_circle: | :x: | :green_circle: |
+| View Circulars | :green_circle: | :x: | :green_circle: |
 
 ## 1.1+ Features
 | Feature | API | App | Website |
 |---------|-----|-----|---------|
+| Site-Wide Search | :x: | :x: | :x: | 
 | View Fees | :x: | :x: | :x: |
 | View Library | :x: | :x: | :x: |
 | View Transport | :x: | :x: | :x: |

@@ -17,9 +17,10 @@
     <title>Homework List</title>
     <script>
         window.onload = function () {
-            var toolbar = document.getElementById("toolbar")
-            var expandToolbarIcon = document.getElementById("expandToolbarIcon")
             var topappbar = document.getElementById("topappbar");
+            var tAbDivider = document.getElementById("tabDivider");
+            var avatar = document.getElementById("avatar");
+            var topappbarrow = document.getElementById("topappbarrow");
         };
         function fixtopappbar() {
             if (window.scrollY > 0) {
@@ -27,10 +28,25 @@
                 topappbar.style.top = '0'
                 topappbar.style.zIndex = 100000
                 topappbar.style.width = '100%'
+                // topappbar.padding = '0 16px'
                 topappbar.classList.add("surface-container")
+                tAbDivider.style.position = 'fixed'
+                tAbDivider.style.top = '56px'
+                tAbDivider.style.zIndex = 100000
+                tAbDivider.style.width = '100%'
+                // topappbar.padding = '0 32px'
+                // avatar.style.position='fixed'
+                // avatar.style.right='56px'
+                // avatar.style.zIndex=100000
+                topappbarrow.style.padding = '0px 0px 16px 0px'
             } else {
                 topappbar.style.position = 'static'
+                topappbar.removeAttribute('style')
                 topappbar.classList.remove("surface-container")
+                tAbDivider.style.position = 'static'
+                tAbDivider.removeAttribute('style')
+                // avatar.style.position='static'
+                // avatar.removeAttribute('style')
             }
         };
         window.addEventListener('scroll', fixtopappbar);
@@ -39,8 +55,8 @@
 
 <body class="background" style="margin: 0px;">
     <div class="topappbar surface" id="topappbar" name="topappbar">
-        <!-- <md-elevation style="--md-elevation-level: 2;"></md-elevation> -->
-        <div class="topappbar__row">
+        <md-elevation style="--md-elevation-level: 2;"></md-elevation>
+        <div class="topappbar__row" id="topappbarrow">
             <section class="topappbar__section topappbar__section--align-start">
                 <md-standard-icon-button class="topappbar__navigation-icon" href="/">
                     <md-icon>arrow_back</md-icon>
@@ -53,12 +69,12 @@
                 <md-standard-icon-button class="topappbar__action-item" onclick="changeView()">
                     <md-icon id="viewIcon">table_view</md-icon>
                 </md-standard-icon-button>
-                <img src="{{photoURL}}" id="avatar" class="topappbar__avatar">
+                <img alt="Profile Photo" src="{{photoURL}}" id="avatar" class="topappbar__action-item topappbar__avatar">
                 <md-focus-ring for="avatar"></md-focus-ring>
             </section>
         </div>
     </div>
-    <md-divider></md-divider>
+    <md-divider id="tAbDivider"></md-divider>
     <script>
         function changeView() {
             var tablediv = document.getElementById("hwtable")
@@ -78,10 +94,10 @@
     <div class="on-background-text" style="margin: 8px">
         <div id="body" class="body-medium">
             <md-data-table paginated=true style="border-radius: 28px" id="hwtable" hidden>
-                <md-data-table-column filterable sortable>Description</md-data-table-column>
                 <md-data-table-column filterable sortable sorted>Date</md-data-table-column>
-                <md-data-table-column filterable sortable>Subject</md-data-table-column>
                 <md-data-table-column filterable sortable>Name</md-data-table-column>
+                <md-data-table-column filterable sortable>Subject</md-data-table-column>
+                <md-data-table-column filterable sortable>Description</md-data-table-column>
                 <md-data-table-column filterable sortable>Deadline</md-data-table-column>
                 <md-data-table-column filterable sortable>Attachments</md-data-table-column>
                 {% for key in ids -%}
@@ -101,13 +117,12 @@
             </md-data-table>
             <div id="hwCardList">
                 {% for key in ids -%}
-                <md-outlined-card class="card" style="width: 100%;" id="hwclass">
-                    <md-focus-ring for="hwclass"></md-focus-ring>
+                <md-outlined-card class="card" style="width: 100%;">
+                    <md-elevation style="--md-elevation-level: 5;"></md-elevation>
                     <div class="card__header">
                         <div class="card__header-text">
                             <div class="card__title">{{homeworks[key]['name']}}</div>
                             <div class="card__subtitle"><b>Date: </b>{{homeworks[key]['date']}}</div>
-
                         </div>
                     </div>
                     <div class="card__secondary body-medium">
@@ -124,6 +139,7 @@
                         {% endfor %}
                     </div>
                 </md-outlined-card>
+                <br>
                 <br>
                 {% endfor %}
             </div>

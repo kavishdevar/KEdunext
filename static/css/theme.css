@@ -3,3 +3,25 @@
 @import url(typography.module.css);
 @import url(theme.light.css) (prefers-color-scheme: light);
 @import url(theme.dark.css) (prefers-color-scheme: dark);
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--md-sys-color-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-on-background);
+    border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-secondary);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: var(--md-sys-color-primary);
+}

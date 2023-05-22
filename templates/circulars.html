@@ -18,6 +18,8 @@
     <script>
         window.onload = function () {
             var topappbar = document.getElementById("topappbar");
+            var tAbDivider = document.getElementById("tabDivider");
+            var avatar = document.getElementById("avatar");
         };
         function fixtopappbar() {
             if (window.scrollY > 0) {
@@ -26,9 +28,19 @@
                 topappbar.style.zIndex = 100000
                 topappbar.style.width = '100%'
                 topappbar.classList.add("surface-container")
+                tAbDivider.style.position = 'fixed'
+                tAbDivider.style.top = '56px'
+                tAbDivider.style.zIndex = 100000
+                tAbDivider.style.width = '100%'
+                avatar.style.position='fixed'
+                avatar.style.right='16px'
+                avatar.style.zIndex=100000
             } else {
                 topappbar.style.position = 'static'
+                topappbar.removeAttribute('style')
                 topappbar.classList.remove("surface-container")
+                tAbDivider.style.position = 'static'
+                tAbDivider.removeAttribute('style')
             }
         };
         window.addEventListener('scroll', fixtopappbar);
@@ -47,12 +59,12 @@
             <section class="topappbar__section topappbar__section--align-center">
             </section>
             <section class="topappbar__section topappbar__section--align-end" style="vertical-align: middle;">
-                <img src="{{photoURL}}" id="avatar" class="topappbar__avatar">
+                <img alt="Profile Photo" src="{{photoURL}}" id="avatar" class="topappbar__avatar">
                 <md-focus-ring for="avatar"></md-focus-ring>
             </section>
         </div>
     </div>
-    <md-divider></md-divider>
+    <md-divider id="tAbDivider"></md-divider>
     <script>
         window.onload = function() {
             var mpFilter = document.getElementById("mpFilter");
