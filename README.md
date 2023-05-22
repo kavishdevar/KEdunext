@@ -1,7 +1,6 @@
-# Pydunext
+# KEdunext
 ## A 3rd party (WIP) API/App/Website for the Edunext School ERP for students.
 ### This is a work in progress project. I am not affiliated with Edunext in any way.
-### This project is neither endorsed by nor affiliated with Edunext.
 
 - **Alpha** features are in-development and may have many frequent breaking changes.
 - **Beta** features are mostly polished and ready for use (but you'll have to figure how to use it yourself).
