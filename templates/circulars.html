@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="card__secondary body-medium">
-                    {{circulars[key]['description']}}
+                    {{circulars[key]['description'] | replace('\n\n','') | replace('\n','<br>') | safe}}
                     <br>
                     Attachments:
                     <br>
