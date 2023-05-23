@@ -30,6 +30,7 @@
 | Feature | API | App | Website |
 |---------|-----|-----|---------|
 | Site-Wide Search | :x: | :x: | :x: | 
+| Submit Homework | :x: | :x: | :x: |
 | View Fees | :x: | :x: | :x: |
 | View Library | :x: | :x: | :x: |
 | View Transport | :x: | :x: | :x: |
