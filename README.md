@@ -20,16 +20,18 @@
 ## 1.0 Features
 | Feature | API | App | Website |
 |---------|-----|-----|---------|
-| Login | :yellow_circle: | :x: | :yellow_circle: |
+| Login | :yellow_circle: | :x: | :green_circle: |
 | View Profile | :x: | :x: | :x: |
 | View Attendance | :x: | :x: | :x: |
 | View Assignments | :green_circle: | :x: | :green_circle: |
-| View Circulars | :green_circle: | :x: | :green_circle: |
+| View Circulars | :heavy_check_mark: | :x: | :heavy_check_mark: |
+| View Results | :x: | :x: | :x: |
 
-## 1.1+ Features
+## Future Features
 | Feature | API | App | Website |
 |---------|-----|-----|---------|
 | Site-Wide Search | :x: | :x: | :x: | 
+| Submit Homework | :x: | :x: | :x: |
 | View Fees | :x: | :x: | :x: |
 | View Library | :x: | :x: | :x: |
 | View Transport | :x: | :x: | :x: |
@@ -45,7 +47,7 @@
 ### Steps
 1. Clone the repository
 ```bash
-git clone https://github.com/techoria/Pydunext.git
+git clone https://github.com/stiblook/KEdunext.git
 ```
 2. Create a virtual environment (optional)
 ```bash
@@ -61,9 +63,9 @@ pip install -r requirements.txt
 ```
 5. Run the server
 ```bash
-python app.py
+python index.py
 ```
 6. Open the website in your browser
 ```
-http://localhost:8080
+http://localhost:8000
 ```

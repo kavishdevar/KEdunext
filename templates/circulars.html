@@ -18,31 +18,37 @@
     <script>
         window.onload = function () {
             var topappbar = document.getElementById("topappbar");
-            var tAbDivider = document.getElementById("tabDivider");
             var avatar = document.getElementById("avatar");
         };
         function fixtopappbar() {
-            if (window.scrollY > 0) {
-                topappbar.style.position = 'fixed'
-                topappbar.style.top = '0'
-                topappbar.style.zIndex = 100000
-                topappbar.style.width = '100%'
-                topappbar.classList.add("surface-container")
-                tAbDivider.style.position = 'fixed'
-                tAbDivider.style.top = '56px'
-                tAbDivider.style.zIndex = 100000
-                tAbDivider.style.width = '100%'
-                avatar.style.position='fixed'
-                avatar.style.right='16px'
-                avatar.style.zIndex=100000
+            if (scrollYGreaterThanZero()) {
+                setTopAppBarFixedPosition();
+                setAvatarFixedPosition();
             } else {
-                topappbar.style.position = 'static'
-                topappbar.removeAttribute('style')
-                topappbar.classList.remove("surface-container")
-                tAbDivider.style.position = 'static'
-                tAbDivider.removeAttribute('style')
+                setTopAppBarStaticPosition();
+                setAvatarStaticPosition();
             }
         };
+
+        function scrollYGreaterThanZero() {
+            return window.scrollY > 0
+        }
+
+        function setTopAppBarFixedPosition() {
+            topappbar.classList.add('topappbar__fixed')
+        }
+
+        function setTopAppBarStaticPosition() {
+            topappbar.classList.remove('topappbar__fixed')
+        }
+
+        function setAvatarFixedPosition() {
+            avatar.style.margin = '8px 48px 8px 8px'
+        }
+
+        function setAvatarStaticPosition() {
+            avatar.removeAttribute('style')
+        }
         window.addEventListener('scroll', fixtopappbar);
     </script>
 </head>
@@ -59,7 +65,11 @@
             <section class="topappbar__section topappbar__section--align-center">
             </section>
             <section class="topappbar__section topappbar__section--align-end" style="vertical-align: middle;">
+                {% if error %}
+                <md-icon id="avatar" style="color: var(--md-sys-color-on-surface); vertical-align: middle;" class="">account_circle</md-icon>
+                {% else %}
                 <img alt="Profile Photo" src="{{photoURL}}" id="avatar" class="topappbar__avatar">
+                {% endif %}
                 <md-focus-ring for="avatar"></md-focus-ring>
             </section>
         </div>
@@ -77,7 +87,29 @@
             }
         }
     </script>
-    <main class="on-background-text" style="margin: 8px">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--md-sys-color-error-container);
+        }
+        .error-text {
+            font-size: 64px;
+            font-weight: 500;
+            color: var(--md-sys-color-error-text);
+            font-family: "Roboto";
+            text-align: center;
+        }
+    </style>
+    {% if error %}
+    <div class="error-container">
+        <h1 class="error-text">{{ error }}</h1>
+    </div>
+    {% else %}
+    <div class="on-background-text" style="margin: 8px">
         <div id="body" class="body-medium">
             <md-filter-chip label="Monthly Planner" id="mpFilter" onclick="filter()"><md-icon slot="icon">calendar_month</md-icon></md-filter-chip>
             <md-filter-chip label="School Newsletter" id="snFilter" onclick="filter()"><md-icon slot="icon">newspaper</md-icon></md-filter-chip>
@@ -93,9 +125,9 @@
                     </div>
                 </div>
                 <div class="card__secondary body-medium">
-                    {{circulars[key]['description']}}
+                    <b>Description:</b>{% if circulars[key]['description'] %}<br>{% endif %}{{circulars[key]['description'] | trim | replace('\xa0\n\n','') | replace('\n\n','') | replace('\n','<br>') | safe}}
                     <br>
-                    Attachments:
+                    <b>Attachments:</b>
                     <br>
                     {% for name,url in circulars[key]['attachments'].items() %}
                     <a class="primary-text" href={{url}}>{{name}}</a>
@@ -107,6 +139,8 @@
             {% endfor %}
         </div>
         </div>
+    </div>
+    {% endif %}
 </body>
 
 </html>

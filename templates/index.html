@@ -18,33 +18,49 @@
     <script>
         window.onload = function () {
             var topappbar = document.getElementById("topappbar");
-            var tAbDivider = document.getElementById("tabDivider");
             var avatar = document.getElementById("avatar");
+            fixtopappbar()
         };
         function fixtopappbar() {
             if (window.scrollY > 0) {
-                topappbar.style.position = 'fixed'
-                topappbar.style.top = '0'
-                topappbar.style.zIndex = 100000
-                topappbar.style.width = '100%'
-                topappbar.classList.add("surface-container")
-                tAbDivider.style.position = 'fixed'
-                tAbDivider.style.top = '56px'
-                tAbDivider.style.zIndex = 100000
-                tAbDivider.style.width = '100%'
-                avatar.style.position='fixed'
-                avatar.style.right='16px'
-                avatar.style.zIndex=100000
+                fixTopAppBar()
+                fixAvatar()
             } else {
-                topappbar.style.position = 'static'
-                topappbar.removeAttribute('style')
-                topappbar.classList.remove("surface-container")
-                tAbDivider.style.position = 'static'
-                tAbDivider.removeAttribute('style')
-                avatar.style.position='static'
-                avatar.removeAttribute('style')
+                resetTopAppBar()
+                resetAvatar()
             }
         };
+
+        function fixTopAppBar() {            
+            topappbar.classList.add('topappbar__fixed')
+        }
+        function fixToolbarAbDivider() {
+            tAbDivider.style.position = 'fixed'
+            tAbDivider.style.top = '56px'
+            tAbDivider.style.zIndex = 100000
+            tAbDivider.style.width = '100%'
+        }
+        function fixAvatar() {
+            avatar.style.position='fixed'
+            avatar.style.right='16px'
+            avatar.style.zIndex=100000
+        }
+
+        function resetTopAppBar() {
+            topappbar.style.position = 'static'
+            topappbar.removeAttribute('style')
+            topappbar.classList.remove('topappbar__fixed')
+        }
+
+        function resetToolbarAbDivider() {
+            tAbDivider.style.position = 'static'
+            tAbDivider.removeAttribute('style')
+        }
+
+        function resetAvatar() {
+            avatar.style.position='static'
+            avatar.removeAttribute('style')
+        }
         window.addEventListener('scroll', fixtopappbar);
     </script>
 </head>
@@ -72,13 +88,38 @@
             <section class="topappbar__section topappbar__section--align-center">
             </section>
             <section class="topappbar__section topappbar__section--align-end">
+                {% if error %}
+                <md-icon id="avatar" style="color: var(--md-sys-color-on-surface); vertical-align: middle;" class="">account_circle</md-icon>
+                {% else %}
                 <img alt="Profile Photo" src="{{photoURL}}" id="avatar" class="topappbar__avatar">
+                {% endif %}
                 <md-focus-ring for="avatar"></md-focus-ring>
             </section>
         </div>
     </div>
-    <md-divider id="tAbDivider"></md-divider>
-    <div class="on-background-text" style="margin: 8px;">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--md-sys-color-error-container);
+        }
+        .error-text {
+            font-size: 64px;
+            font-weight: 500;
+            color: var(--md-sys-color-error-text);
+            font-family: "Roboto";
+            text-align: center;
+        }
+    </style>
+    {% if error %}
+    <div class="error-container">
+        <h1 class="error-text">{{ error }}</h1>
+    </div>
+    {% else %}
+    <div class="on-background-text content" style="margin: 8px;">
         <md-outlined-card class="card" style="box-sizing: border-box; width: 100%;">
             <div class="card__header">
                 <div class="card-thumbnail">
@@ -89,7 +130,7 @@
                     <div class="card__subtitle">Check out the homework list!</div>
                 </div>
             </div>
-            <div class="card__secondary body-medium" style="box-sizing: border-box; max-width: 100%; overflow: scroll; overflow-x: auto;">
+            <div class="card__secondary body-medium" style="box-sizing: border-box; max-width: 100%; overflow: scroll; overflow-x: auto; overflow-y: auto;">
                 Recent homeworks:
                 <br>
                 <md-data-table>
@@ -123,7 +164,7 @@
                     <div class="card__subtitle">Check out the circulars!</div>
                 </div>
             </div>
-            <div class="card__secondary body-medium" style="box-sizing: border-box; max-width: 100%; overflow: scroll; overflow-x: auto;">
+            <div class="card__secondary body-medium" style="box-sizing: border-box; max-width: 100%; overflow: scroll; overflow-x: auto; overflow-y: auto;">
             Recent circulars:
                 <br>
                 <md-data-table>
@@ -151,6 +192,7 @@
             </md-standard-icon-button>
         </md-outlined-card>
     </div>
+    {% endif %}
 </body>
 
 </html>
