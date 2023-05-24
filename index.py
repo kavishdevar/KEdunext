@@ -66,8 +66,6 @@ def circular():
                 if user.circularlist[key]["date"]==date:
                     ids.append(key)
                     break
-            print(date)
-        print(ids)
         return render_template('circulars.html',circulars=user.circularlist,ids=ids,photoURL=user.photoURL)
 
 @app.route('/')
@@ -78,7 +76,20 @@ def index():
     if "error" in user.hwlist.keys() or "error" in user.circularlist.keys():
         return render_template('index.html',error=user.hwlist["error"],homeworks={},ids=[],photoURL="")
     else:
-        return render_template('index.html',homeworks=user.hwlist,ids=reversed(sorted(user.hwlist.keys())),photoURL=user.photoURL,circulars=user.circularlist,circularids=reversed(sorted(user.circularlist.keys())))
+        keys=user.circularlist.keys()
+        dates=[]
+        for key in keys:
+            # user.circularlist[key]["date"]=datetime.strptime(user.circularlist[key]["date"], '%d-%m-%Y').date()
+            print(user.circularlist[key]["date"])
+            dates.append(user.circularlist[key]["date"])
+        dates.sort(key = lambda date: datetime.strptime(date, '%d-%m-%Y'), reverse=True)
+        ids=[]
+        for date in dates:
+            for key in keys:
+                if user.circularlist[key]["date"]==date:
+                    ids.append(key)
+                    break
+        return render_template('index.html',homeworks=user.hwlist,ids=reversed(sorted(user.hwlist.keys())),photoURL=user.photoURL,circulars=user.circularlist,circularids=ids)
     
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=8000, debug=True)
