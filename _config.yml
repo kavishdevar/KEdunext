@@ -1,0 +1,27 @@
+# Site settings
+title: KEdunext Documentation
+email: developer@stiblook.rocks
+description: > 
+baseurl: "/"
+url: "https://kedunext-docs.stiblook.rocks/"
+
+
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path/
+    order: "title"
+    sort_by: "title"
+    reverse: false
+    # Excludes
+    
+
+exclude:
+  - bower_components
+  - Gemfile
+  
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM  #Github Flavored Markdown

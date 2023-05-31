@@ -1,0 +1,14 @@
+{
+    "short_name": "KEdunext",
+    "name": "KEdunext",
+    "icons":[
+        {
+            "src": "images/icons/icon-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        }
+    ],
+    "id": "/",
+    "start_url": "/",
+    "background-color": "#3367D6"
+}
