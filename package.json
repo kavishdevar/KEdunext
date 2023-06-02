@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@maicol07/material-web-additions": "^1.2.12",
+    "@maicol07/material-web-additions": "github:maicol07/material-web-additions",
+    "@material/material-color-utilities": "^0.2.6",
     "@material/web": "file:material-web",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "rollup": "^2.79.1"

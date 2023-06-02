@@ -13,12 +13,24 @@
     <link rel="stylesheet" href="/static/css/fonts.css">
     <link rel="stylesheet" href="/static/css/card.css">
     <link rel="stylesheet" href="/static/css/topappbar.css">
+    <script type="module" src="/static/js/colors.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <title>Circular List</title>
     <script>
         window.onload = function () {
             var topappbar = document.getElementById("topappbar");
             var avatar = document.getElementById("avatar");
+            var navDrawer = document.getElementById("nav");
+            red = document.getElementById('red')
+            green = document.getElementById('green')
+            blue = document.getElementById('blue')
+            light = document.getElementById('light').selected
+            dark = document.getElementById('dark').selected
+            system = document.getElementById('system').selected
+            redLabel = document.getElementById('redLabel')
+            greenLabel = document.getElementById('greenLabel')
+            blueLabel = document.getElementById('blueLabel')
+            colorDisplay = document.getElementById('colorDisplay')
         };
         function fixtopappbar() {
             if (scrollYGreaterThanZero()) {
@@ -39,11 +51,14 @@
         }
 
         function setTopAppBarStaticPosition() {
-            topappbar.classList.remove('topappbar__fixed')
+            if (document.getElementById('nav').style.transform == "translateX(0%)") { }
+            else {
+                topappbar.classList.remove('topappbar__fixed')
+            }
         }
 
         function setAvatarFixedPosition() {
-            avatar.style.margin = '8px 48px 8px 8px'
+            avatar.style.margin = '8px 48px 8px 0px'
         }
 
         function setAvatarStaticPosition() {
@@ -52,21 +67,37 @@
         window.addEventListener('scroll', fixtopappbar);
     </script>
 </head>
+<style>
+    md-slider {
+        color: var(--md-sys-color-on-secondary-container);
+        --md-slider-inactive-track-color: var(--md-sys-color-surface);
+    }
+</style>
+
 <body class="background" style="margin:0px;" onscroll="fixtopappbar()">
     <div class="topappbar surface" id="topappbar" name="topappbar">
-        <!-- <md-elevation style="--md-elevation-level: 2;"></md-elevation> -->
+        <md-elevation style="--md-elevation-level: 2;"></md-elevation>
         <div class="topappbar__row">
             <section class="topappbar__section topappbar__section--align-start">
-                <md-standard-icon-button class="topappbar__navigation-icon" href="/">
-                    <md-icon>arrow_back</md-icon>
+                <md-standard-icon-button class="topappbar__navigation-icon" toggle onclick="openNavDrawer()"
+                    id="menuButton">
+                    <md-icon>menu</md-icon>
+                    <md-icon slot="selectedIcon">menu_open</md-icon>
                 </md-standard-icon-button>
-                <span class="topappbar__title title-large on-background-text">Circulars</span>
+                <span class="topappbar__title title-large on-background-text"><a id="titletext" class="primary-text"
+                        href="/" style="text-decoration: none;">KEdunext</a> — Circulars</span>
             </section>
             <section class="topappbar__section topappbar__section--align-center">
             </section>
             <section class="topappbar__section topappbar__section--align-end" style="vertical-align: middle;">
+                <md-icon-button class="topappbar__action-item" toggle
+                    style="vertical-align: middle; padding-top: 7px; padding-right: 16px;"
+                    onclick="document.getElementById('colorPicker').hidden=!document.getElementById('colorPicker').hidden">
+                    <md-icon class="on-surface-text">palette</md-icon>
+                </md-icon-button>
                 {% if error %}
-                <md-icon id="avatar" style="color: var(--md-sys-color-on-surface); vertical-align: middle;" class="">account_circle</md-icon>
+                <md-icon id="avatar" class="on-surface-text" style="vertical-align: middle;"
+                    class="on-surface-text">account_circle</md-icon>
                 {% else %}
                 <img alt="Profile Photo" src="{{photoURL}}" id="avatar" class="topappbar__avatar">
                 {% endif %}
@@ -74,19 +105,195 @@
             </section>
         </div>
     </div>
-    <md-divider id="tAbDivider"></md-divider>
-    <script>
-        window.onload = function() {
-            var mpFilter = document.getElementById("mpFilter");
-            var snFilter = document.getElementById("snFilter");
-            var scFilter = document.getElementById("scFilter");
+    <script type="module">
+        import { applyTheme, argbFromRgb, themeFromSourceColor, Scheme } from "/static/js/colors.js";
+        var red = document.getElementById('red')
+        var green = document.getElementById('green')
+        var blue = document.getElementById('blue')
+        var light = document.getElementById('light').selected
+        var dark = document.getElementById('dark').selected
+        var system = document.getElementById('system').selected
+        var scheme = new Scheme(argbFromRgb(red.value, green.value, blue.value))
+        console.log(scheme)
+        function changeColor() {
+            // red=red.value
+            // green=green.value
+            // blue=blue.value
+            console.log(red.value, green.value, blue.value)
+            redLabel.innerHTML = red.value
+            greenLabel.innerHTML = green.value
+            blueLabel.innerHTML = blue.value
+            var dark = false
+            // var scheme = new Scheme()
+            // console.log(argbFromRgb(red.value, green.value, blue.value).primary)
+            const theme = themeFromSourceColor(argbFromRgb(red.value, green.value, blue.value), [
+                {
+                    name: "theme",
+                    value: argbFromRgb(red.value, green.value, blue.value),
+                    blend: true,
+                },
+            ]);
+            if (document.getElementById('light').selected) {
+                dark = false
+            }
+            if (document.getElementById('dark').selected) {
+                dark = true
+            }
+            if (document.getElementById('system').selected) {
+                dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            }
+            colorDisplay.style.backgroundColor = rgbToHex(red.value, green.value, blue.value)
+            applyTheme(theme, { target: document.body, dark: dark });
         }
-        function filter() {
-            if (mpFilter.selected) {
-                
+        red.addEventListener('change', changeColor)
+        green.addEventListener('change', changeColor)
+        blue.addEventListener('change', changeColor)
+        document.getElementById('themeSelector').onclick = changeColor()
+    </script>
+    <script>
+        function componentToHex(c) {
+            var hex = c.toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        }
+
+        function rgbToHex(r, g, b) {
+            return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+        }
+    </script>
+    <style>
+        #gradient {
+            height: 24px;
+            border-radius: 12px;
+            border: 1px solid currentColor;
+            box-sizing: border-box;
+        }
+
+        aside {
+            position: fixed;
+            isolation: isolate;
+            margin-top: 48px;
+            /* margin-bottom: 400px; */
+            width: 256px;
+            height: 95%;
+            overflow-y: auto;
+            overflow-x: auto;
+            background-color: var(--md-sys-color-surface);
+            z-index: 12;
+            transition: transform 0.2s ease-out;
+            transform: translateX(-100%);
+            border-radius: 0px 28px 28px 0px;
+            border-top-right-radius: 28px;
+            border-bottom-right-radius: 28px;
+            padding: 16px;
+
+        }
+
+        md-ripple {
+            border-radius: 28px;
+        }
+
+        md-list-item-link {
+            border-radius: 28px;
+        }
+
+        .shadowed {
+            filter: brightness(0.8)
+        }
+    </style>
+    <script>
+        function openNavDrawer() {
+            menuButton = document.getElementById('menuButton')
+            navDrawer = document.getElementById('nav')
+            content = document.getElementById('content')
+            console.log(navDrawer.style.transform)
+            if (menuButton.selected) {
+                content.classList.add('shadowed')
+                navDrawer.style.transform = "translateX(0%)"
+                topappbar.classList.add('topappbar__nav')
+            } else {
+                topappbar.classList.remove('topappbar__nav')
+                content.classList.remove('shadowed')
+                navDrawer.style.transform = "translateX(-100%)"
             }
         }
     </script>
+    <md-navigation-drawer-modal open>
+        <md-text-button style="width: 90%;" >
+            <md-icon slot="icon">dashboard</md-icon>
+            <h3 class="on-surface-text title-small">Dashboard</h3>
+        </md-text-button>
+        <md-tonal-button style="width: 90%;">
+            <md-icon slot="icon">description</md-icon>
+            <h3 class="on-surface-text title-small">Circulars</h3>
+        </md-tonal-button>
+    </md-navigation-drawer-modal>
+    <aside id="nav">
+        <md-elevation style="--md-elevation-level: 5;" for="nav"></md-elevation>
+        <md-text-button style="width: 100%;">
+            <md-icon slot="icon">dashboard</md-icon>
+            <h3 class="on-surface-text title-small">Dashboard</h3>
+        </md-text-button>
+        <md-tonal-button style="width: 100%;">
+            <md-icon slot="icon">description</md-icon>
+            <h3 class="on-surface-text title-small">Circulars</h3>
+        </md-tonal-button>
+        </md-list>
+    </aside>
+    <div id="colorPicker" class="primary-container"
+        style="position: fixed; bottom: 0; right: 0; margin: 16px; width: 300px; height: fit-content; z-index: 1000; --md-elevation-level: 5; border-radius: 28px;"
+        hidden>
+        <md-elevation></md-elevation>
+        <h2 class="on-primary-container-text title-large" style="margin: 16px; text-align: center;">Theme controls</h2>
+        <md-divider class="on-background-text"></md-divider>
+        <style>
+            .colorDisplay {
+                border-radius: 64px;
+                width: 32px;
+                height: 32px;
+            }
+        </style>
+        <div style="background-color: var(--md-sys-color-secondary); border-radius: 28px; padding: 16px; margin: 16px; height: 30px;"
+            id="colorSource">
+            <label class="on-secondary-text title-medium" for="colorDisplay"
+                style="text-align: right; clear: both; float:left; margin-right:15px; vertical-align: middle;">Hex
+                Source Color</label>
+            <div id="colorDisplay" class="colorDisplay" style="float: right;"></div>
+        </div>
+        <div style="background-color: var(--md-sys-color-secondary); border-radius: 28px; padding: 16px; margin: 16px"
+            id="rgbContainer">
+            <div style="margin-left: 16px; margin-right: 16px;">
+                <label class="on-secondary-text body-medium" style="margin: 16px;">Red</label>
+                <div id="redLabel" class="on-secondary-text body-medium" style="float: right;">50</div>
+            </div>
+            <md-slider id="red" value=50 step=1 valueStart=0 min=0 valueEnd=255 max=255 withLabel
+                style="width: 100%;"></md-slider>
+            <div style="margin-left: 16px; margin-right: 16px;">
+                <label class="on-secondary-text body-medium" style="margin: 16px;">Green</label>
+                <div id="greenLabel" class="on-secondary-text body-medium" style="float: right;">50</div>
+            </div>
+            <md-slider id="green" value=50 step=1 valueStart=0 min="0" valueEnd=255 max=255 withLabel
+                style="width: 100%;"></md-slider>
+            <div style="margin-left: 16px; margin-right: 16px;">
+                <label class="on-secondary-text body-medium" style="margin: 16px;">Blue</label>
+                <div id="blueLabel" class="on-secondary-text body-medium" style="float: right;">50</div>
+            </div>
+            <md-slider id="blue" value=50 step=1 valueStart=0 min=0 valueEnd=255 max=255 withLabel
+                style="width: 100%;"></md-slider>
+        </div>
+        <md-divider class="on-background-text"></md-divider>
+        <md-outlined-segmented-button-set style="margin: 16px;" id="themeSelector">
+            <md-outlined-segmented-button id="dark" selected>
+                <md-icon slot="icon">dark_mode</md-icon>
+            </md-outlined-segmented-button>
+            <md-outlined-segmented-button id="system">
+                <md-icon slot="icon">brightness_medium</md-icon>
+            </md-outlined-segmented-button>
+            <md-outlined-segmented-button id="light">
+                <md-icon slot="icon">light_mode</md-icon>
+            </md-outlined-segmented-button>
+        </md-outlined-segmented-button-set>
+        <p class="on-primary-container-text body-small" style="margin: 16px;">p.s. - change color after changing theme (bug in material web components - web component is not reactive, i.e. the selector doesn't tell me that you've changed something)</p>
+    </div>
     <style>
         .error-container {
             display: flex;
@@ -96,6 +303,7 @@
             height: 100vh;
             background-color: var(--md-sys-color-error-container);
         }
+
         .error-text {
             font-size: 64px;
             font-weight: 500;
@@ -109,14 +317,21 @@
         <h1 class="error-text">{{ error }}</h1>
     </div>
     {% else %}
-    <div class="on-background-text" style="margin: 8px">
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* li {
+            display: inline;
+        } */
+    </style>
+    <div id="content" class="on-background-text" style="margin: 8px">
         <div id="body" class="body-medium">
-            <md-filter-chip label="Monthly Planner" id="mpFilter" onclick="filter()"><md-icon slot="icon">calendar_month</md-icon></md-filter-chip>
-            <md-filter-chip label="School Newsletter" id="snFilter" onclick="filter()"><md-icon slot="icon">newspaper</md-icon></md-filter-chip>
-            <md-filter-chip label="School Circulars" id="scFilter" onclick="filter()" ><md-icon slot="icon">description</md-icon></md-filter-chip>
-            <br><br>
             {% for key in ids %}
-            <md-outlined-card class="card" style="width: 100%;">
+            <md-filled-card class="card" style="width: 100%;">
                 <md-elevation></md-elevation>
                 <div class="card__header">
                     <div class="card__header-text">
@@ -125,20 +340,26 @@
                     </div>
                 </div>
                 <div class="card__secondary body-medium">
-                    <b>Description:</b>{% if circulars[key]['description'] %}<br>{% endif %}{{circulars[key]['description'] | trim | replace('\xa0\n\n','') | replace('\n\n','') | replace('\n','<br>') | safe}}
+                    <b>Description:</b>{% if circulars[key]['description'] %}<br>{% endif
+                    %}{{circulars[key]['description'] | trim | replace('\xa0\n\n','') | replace('\n\n','') |
+                    replace('\n','<br>') | safe}}
                     <br>
                     <b>Attachments:</b>
                     <br>
-                    {% for name,url in circulars[key]['attachments'].items() %}
-                    <a class="primary-text" href={{url}}>{{name}}</a>
-                    {% endfor %}
+                    <ul>
+                        {% for name,url in circulars[key]['attachments'].items() %}
+                        <li>
+                            <a class="primary-text" href={{url}}>{{name}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
                     <br>
                 </div>
-            </md-outlined-card>
+            </md-filled-card>
             <br><br>
             {% endfor %}
         </div>
-        </div>
+    </div>
     </div>
     {% endif %}
 </body>

@@ -19,39 +19,33 @@
         window.onload = function () {
             var topappbar = document.getElementById("topappbar");
             var avatar = document.getElementById("avatar");
-            var viewIconButton = document.getElementById("viewIconButton");
+            var topappbar__elevation = document.getElementById("topappbar__elevation");
         };
 
         function fixtopappbar() {
             if (window.scrollY > 0) {
                 fixTopAppBar();
                 fixAvatar()
-                fixViewIcon()
             } else {
                 unfixTopAppBar();
                 unfixAvatar();
-                unfixViewIcon();
             }
         };
 
         function fixTopAppBar() {
            topappbar.classList.add('topappbar__fixed')
+           topappbar__elevation.style.display = 'block'
         }
 
         function unfixTopAppBar() {
             topappbar.classList.remove('topappbar__fixed')
+            topappbar__elevation.style.display = 'none'
         }
         function fixAvatar() {
-            avatar.style.margin = '8px 48px 8px 8px'
+            avatar.style.margin = '8px 48px 8px 16px'
         }
         function unfixAvatar() {
             avatar.removeAttribute('style')
-        }
-        function fixViewIcon() {
-            viewIcon.style.paddingRight = '20px'
-        }
-        function unfixViewIcon() {
-            viewIcon.removeAttribute('style')
         }
         window.addEventListener('scroll', fixtopappbar);
     </script>
@@ -59,7 +53,7 @@
 
 <body class="background" style="margin: 0px;">
     <div class="topappbar surface" id="topappbar" name="topappbar">
-        <md-elevation style="--md-elevation-level: 2;"></md-elevation>
+        <md-elevation style="--md-elevation-level: 2; display: none;" id="topappbar__elevation"></md-elevation>
         <div class="topappbar__row" id="topappbarrow">
             <section class="topappbar__section topappbar__section--align-start">
                 <md-standard-icon-button class="topappbar__navigation-icon" href="/">
@@ -69,12 +63,12 @@
             </section>
             <section class="topappbar__section topappbar__section--align-center">
             </section>
-            <section class="topappbar__section topappbar__section--align-end" style="vertical-align: middle;">
+            <section class="topappbar__section topappbar__section--align-end">
                 <md-standard-icon-button class="topappbar__action-item" id="viewIconButton" onclick="changeView()">
                     <md-icon id="viewIcon">table_view</md-icon>
                 </md-standard-icon-button>
                 {% if error %}
-                <md-icon id="avatar" style="color: var(--md-sys-color-on-surface); vertical-align: middle;">account_circle</md-icon>
+                <md-icon id="avatar" style="color: var(--md-sys-color-on-surface); vertical-align: middle;" class="on-surface-text">account_circle</md-icon>
                 {% else %}
                 <img alt="Profile Photo" src="{{photoURL}}" id="avatar" class="topappbar__avatar topappbar__action-item">
                 {% endif %}
